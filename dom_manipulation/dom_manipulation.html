@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Crash Course | DOM Manipulation</title>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+    <style>
+      body {
+        font-size: 17px;
+        font-family: arial;
+        background: #f4f4f4;
+        line-height: 1.5em;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 4px black solid;
+        margin-bottom: 10px;
+      }
+      #container {
+        width: 90%;
+        margin: auto;
+        padding: 10px;
+      }
+      .myClass {
+        color: blue;
+        background: black;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>jQuery Crash Course | DOM Manipulation</h1>
+    </header>
+    <div id="container">
+      <button id="btn1">Button 1</button>
+      <p class="para1">This is a paragraph.</p>
+      <p class="para2">This is another paragraph.</p>
+      <div id="myDiv">
+
+      </div>
+      <input type="text" id="newItem">
+      <ul id="list">
+        <li>List Item 1</li>
+        <li>List Item 2</li>
+        <li>List Item 3</li>
+        <li>List Item 4</li>
+        <li>List Item 5</li>
+      </ul>
+      <p>A middle paragraph to test wrapAll.</p>
+      <a href="http://www.google.com">Google</a>
+      <p>An ending paragraph to demonstrate wrapAll.</p>
+      <ul id="users">
+
+      </ul>
+    </div>
+    <script>
+      $(document).ready(function() {
+        /*
+        // css function
+        $('p.para1').css('color','red'); // basic implementation
+
+        $('p.para1').css({ // implemented as an object
+          color:'red',
+          background:'#ccc'
+        });
+        // add and remove classes from the stylesheet (should probably do most
+        // of our CSS in jQuery like this?)
+        $('p.para2').addClass('myClass');
+        $('p.para2').removeClass('myClass');
+        // can also toggle classes
+        $('#btn1').on('click', function() {
+          $('p.para2').toggleClass('myClass');
+        });
+
+        // adding and removing content (SET)
+        // SET text
+        $('#myDiv').text('Hello World');
+        // SET html (you can include tags)
+        $('#myDiv').html('<h3>Hello World</h3>');
+        // you can GET text and html
+        console.log($('#myDiv').text());
+
+        // append and prepend - these go INSIDE the selected element
+        $('ul').append('<li>Append List Item</li>');
+        $('ul').prepend('<li>Prepend List Item</li>');
+
+        // appendTo and prependTo
+        // interesting because double selector, note that it actually moves
+        // the element selected first from where it was before (like cutting)
+        // be careful because this can do some weird stuff with the bg/margins
+        $('.para1').appendTo('.para2');
+        $('.para1').prependTo('.para2');
+
+        // before and after - these go OUTSIDE the selected element
+        $('ul').before('<h4>Hello</h4>');
+        $('ul').after('<h4>World</h4>');
+
+        // empty - removes all the inner elements
+        // detach - removes the elemnt itself
+        $('ul').empty();
+        $('ul').detach();
+
+        // you can append (SET) attributes to a selected element
+        // or elements with attr
+        $('a').attr('target', '_blank');
+        // you can also GET attributes with attr
+        console.log($('a').attr('href'));
+
+        // you can also remove attributes
+        $('a').removeAttr('target');
+
+
+        // you can wrap elements you select in HTML tags
+        // no need to put the closing tag
+        // .wrap will wrap each instance of an element you select in their own
+        // tags
+        // $('p').wrap('<h1>');
+
+        // .wrapAll will wrap everything on the page from the first occurance
+        // of the selected element  to the end of the last occurance of the selected
+        // element in the SAME TAG and it will group them all together
+        $('p').wrapAll('<h1>');
+        */
+
+        // appending items to the list from the text input by using keyup to detect when the user presses enter
+        $('#newItem').keyup(function(e) {
+          var code = e.which; // this will get the key code
+          if(code == 13) { // the code for enter is 13
+            e.preventDefault(); // stop the form from submitting
+            $('ul').append('<li>' + e.target.value + '</li>');
+          }
+        });
+
+
+        // ARRAYS
+        /*
+        var myArr = ['brad','kelly','nate','jose'];
+        // .each function requires an array as its first parameter and a function
+        // as its second and the function will always
+        $.each(myArr, function(i, val) {
+          $('#users').append('<li>' + val + '</li>');
+        });
+        */
+
+        // .toArray takes all of the elements selected and puts them in an array
+        // that array contains a bunch of data about each element such as
+        // innerHTML, attributes, className, innerText, etc.
+        var newArr = $('ul#list li').toArray();
+        console.log(newArr);
+        // we can loop through this array with .each
+        $.each(newArr, function(i, val) {
+          console.log(val.innerHTML); // we could edit the content of the
+          // selected elements in the array and display those edits on the page
+        });
+
+      });
+    </script>
+  </body>
+</html>

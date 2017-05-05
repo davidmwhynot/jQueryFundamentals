@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>jQuery Crash Course | Ajax</title>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+    <style>
+      body {
+        font-size: 17px;
+        font-family: arial;
+        background: #f4f4f4;
+        line-height: 1.5em;
+      }
+      header {
+        background: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 4px black solid;
+        margin-bottom: 10px;
+      }
+      #container {
+        width: 90%;
+        margin: auto;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>jQuery Crash Course | Ajax</h1>
+    </header>
+    <div id="container">
+      <div id="result">
+
+      </div>
+      <ul id="users">
+
+      </ul>
+      <h3>Add Post:</h3>
+      <form id="postForm" action="db.json" method="post">
+        <input type="text" id="title" placeholder="Title"><br>
+        <textarea id="body" placeholder="Body" rows="8" cols="80"></textarea><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <script>
+      $(document).ready(function() {
+        // load method
+        /*
+        $('#result').load('test.html', function (responseTxt, statusTxt, xhr) { // bringing content from test.html into this file without reloading the page or any parts of it other than the selected div
+          // use callback function to test for error
+          if(statusTxt == "success") {
+            console.log("it went fine");
+          } else if (statusTxt == "error") {
+            console.log("error: " + xhr.statusTxt);
+          }
+        });
+
+        // get method
+        $.get('test.html', function(data) {
+          $('#result').html(data);
+        });
+
+
+        // get JSON method
+        $.getJSON('users.json', function(data) {
+          $.each(data, function(i, user) {
+            $('ul#users').append('<li>' + user.firstName + '</li>')
+          });
+        });
+
+        // AJAX GET method
+        $.ajax({ // getting the data
+          method: 'GET',
+          url: 'https://jsonplaceholder.typicode.com/posts',
+          dataType: 'json'
+        }).done(function(data) { // doing shit with the data (put it in an array)
+          console.log(data);
+          $.map(data, function(post, i) {
+            $('#result').append('<h3>' + post.title + '</h3><p>' + post.body + '</p>');
+          });
+        });
+        */
+
+        // AJAX post method
+        $('#postForm').submit(function(e) {
+          e.preventDefault();
+
+          var title = $('#title').val();
+          var body = $('#body').val();
+          var url = $(this).attr('action');
+          $.post(url, {
+            title: title,
+            body: body
+          }).done(function(data) {
+            console.log('Post Saved');
+            console.log(data);
+          });
+        });
+
+      });
+    </script>
+  </body>
+</html>
